@@ -208,11 +208,23 @@
 <p class="font-body-lg text-body-lg text-on-surface-variant max-w-[480px]">
                     Experience the synergy of premium organic coffee and potent adaptogenic mushrooms. Designed to deliver sustained mental clarity and quiet energy throughout your day.
                 </p>
-<form class="flex flex-col sm:flex-row gap-stack-sm max-w-[480px]">
-<input class="flex-1 bg-transparent border border-outline-variant rounded-lg px-stack-md py-stack-sm font-body-md text-body-md focus:border-primary focus:ring-0 transition-colors" placeholder="Enter your email" type="email"/>
-<button class="bg-primary-container text-on-primary font-button text-button px-stack-lg py-stack-sm rounded-lg whitespace-nowrap hover:opacity-90 transition-opacity" type="submit">
-                        Get the Wellness Guide
-                    </button>
+<form id="lead-form" class="flex flex-col sm:flex-row gap-stack-sm max-w-[480px]">
+
+    <input
+        id="email"
+        class="flex-1 bg-transparent border border-outline-variant rounded-lg px-stack-md py-stack-sm font-body-md text-body-md"
+        placeholder="Enter your email"
+        type="email"
+        required
+    />
+
+    <button
+        class="bg-primary-container text-on-primary font-button text-button px-stack-lg py-stack-sm rounded-lg"
+        type="submit"
+    >
+        UNLOCK 20% OFF
+    </button>
+
 </form>
 </div>
 <div class="relative h-[600px] w-full rounded-xl overflow-hidden">
@@ -312,4 +324,41 @@
 </div>
 </div>
 </footer>
+<script>
+
+const SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycbwZZxFF_g9XbtuP3A8S9MWTHesN-3mIBjGO3-2KVnD-yCd5pSM6QOdS1WPKGnzPRIQQKQ/exec";
+
+const AMAZON_URL =
+  "https://www.amazon.com/";
+
+document
+  .getElementById("lead-form")
+  .addEventListener("submit", async function (e) {
+
+    e.preventDefault();
+
+    const email = document.getElementById("email").value;
+
+    try {
+
+      await fetch(SCRIPT_URL, {
+        method: "POST",
+        body: JSON.stringify({
+          email: email,
+          landing: "raw-gravity"
+        })
+      });
+
+      window.location.href = AMAZON_URL;
+
+    } catch (error) {
+
+      alert("Error. Please try again.");
+
+    }
+
+  });
+
+</script>
 </body></html>
