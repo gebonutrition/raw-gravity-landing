@@ -226,6 +226,18 @@
     </button>
 
 </form>
+<div
+    id="success-message"
+    style="
+        display: none;
+        margin-top: 20px;
+        color: #4caf50;
+        font-size: 18px;
+        font-weight: 600;
+    "
+>
+    Thank you! Redirecting to Amazon...
+</div>
 </div>
 <div class="relative h-[600px] w-full rounded-xl overflow-hidden">
 <img class="absolute inset-0 w-full h-full object-cover" data-alt="A sophisticated, high-quality editorial photograph of a professional woman in her late 30s enjoying a cup of coffee in a minimalist, sunlit Scandinavian-style office. She appears calm, focused, and elegantly dressed. The color palette features soft creams, natural woods, and the deep, rich brown of the coffee, complemented by subtle green plant accents. Soft, natural light streams from a large window." src="./assets/hero.jpg"/>
@@ -342,15 +354,22 @@ document
 
     try {
 
-      await fetch(SCRIPT_URL, {
+        await fetch(SCRIPT_URL, {
         method: "POST",
         body: JSON.stringify({
-          email: email,
-          landing: "raw-gravity"
+                email: email,
+                landing: "raw-gravity",
+                source: new URLSearchParams(window.location.search).get("source") || "unknown"
         })
-      });
+        });
 
-      window.location.href = AMAZON_URL;
+        document.getElementById("lead-form").style.display = "none";
+
+        document.getElementById("success-message").style.display = "block";
+
+        setTimeout(() => {
+        window.location.href = AMAZON_URL;
+        }, 2000);
 
     } catch (error) {
 
